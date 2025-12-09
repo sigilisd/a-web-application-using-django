@@ -1,0 +1,17 @@
+[project]
+name = "a-web-application-using-django"
+version = "0.1.0"
+description = "Simple news publishing app built with Django and uv"
+readme = "README.md"
+authors = [
+    { name = "Diana", email = "dianaserik0@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "django>=5.2.9",
+    "python-dotenv>=1.2.1",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.16,<0.10.0"]
+build-backend = "uv_build"

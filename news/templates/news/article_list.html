@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
+<div class="card">
+    <form method="get" class="search">
+        <input
+            type="text"
+            name="q"
+            placeholder="Поиск по заголовку"
+            value="{{ query }}"
+            aria-label="Поиск по заголовку"
+        >
+        <button type="submit" class="btn">Искать</button>
+    </form>
+
+    {% if articles %}
+        {% for article in articles %}
+            <div class="card">
+                <h2><a href="{% url 'news:article_detail' article.pk %}">{{ article.title }}</a></h2>
+                <p class="meta">
+                    Автор: {{ article.author.get_full_name|default:article.author.username }} ·
+                    {{ article.created_at|date:"d.m.Y H:i" }}
+                </p>
+                <p>{{ article.content|truncatewords:40 }}</p>
+                <a class="btn secondary" href="{% url 'news:article_detail' article.pk %}">Читать дальше</a>
+            </div>
+        {% endfor %}
+
+        {% if is_paginated %}
+            <div class="search" style="justify-content: space-between;">
+                {% if page_obj.has_previous %}
+                    <a class="btn secondary" href="?q={{ query }}&page={{ page_obj.previous_page_number }}">Назад</a>
+                {% endif %}
+                <span class="meta">Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a class="btn secondary" href="?q={{ query }}&page={{ page_obj.next_page_number }}">Вперед</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% else %}
+        <p>Новостей пока нет.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
