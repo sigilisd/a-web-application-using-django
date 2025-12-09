@@ -50,5 +50,5 @@ python3 -m pip install --user uv
 - `templates/` — общий базовый шаблон.
 
 ## Проверка
-- Тесты/проверки: `uv run python manage.py check` и `uv run python manage.py test`.
+- Проверка: `uv run python manage.py check`.
 - База данных по умолчанию — `db.sqlite3` в корне проекта.
